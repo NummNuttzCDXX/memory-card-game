@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react';
 import MarvelData from '../modules/marvelData';
 import '../styles/App.css';
 import Card from './Card';
+import Loading from './Loading';
 
 function App() {
 	const [charData, setCharData] = useState(null);
@@ -74,6 +75,9 @@ function App() {
 	return (
 		<>
 			<header> <h1>Marvel Memory Card Game</h1> </header>
+
+			{ loading && <Loading />}
+
 			<main style={mainStyles}>
 				{ !loading &&
 					// If not loading, map through data and return a card for each
