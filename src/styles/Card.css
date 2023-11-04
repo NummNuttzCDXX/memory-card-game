@@ -1,7 +1,11 @@
 .card {
+	background-color: rgba(0, 0, 0, 0.603);
+
 	border: 2px solid red;
 	border-radius: .5rem;
+
 	overflow: hidden;
+	cursor: pointer;
 }
 
 .card img {

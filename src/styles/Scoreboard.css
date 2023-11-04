@@ -1,0 +1,9 @@
+.scoreboard {
+	padding: 1rem;
+	border: 2px solid red;
+}
+
+.scoreboard p {
+	margin: 0;
+	color: gold;
+}

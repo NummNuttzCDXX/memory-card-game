@@ -5,6 +5,7 @@ import '../styles/App.css';
 import Card from './Card';
 import Loading from './Loading';
 import Utility from '../modules/utility';
+import Scoreboard from './Scoreboard';
 
 function App() {
 	const [charData, setCharData] = useState(null);
@@ -53,6 +54,8 @@ function App() {
 		}
 
 		fetchData();
+	// Yes ik this is frowned upon but I only want this effect to run once
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	// Run on mount -- Get background image
@@ -82,6 +85,8 @@ function App() {
 		};
 
 		fetchData();
+	// Yes ik this is frowned upon but I only want this effect to run once
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	// Parse background img url if the data is loaded
@@ -96,9 +101,16 @@ function App() {
 		if (charData && bgData) setLoading(false);
 	}, [charData, bgData]);
 
+	const [score, setScore] = useState(0);
+	const [selected, setSelected] = useState([]); // Hold selected characters
+	const [gameover, setGameover] = useState(false);
+
 	return (
 		<>
-			<header> <h1>Marvel Memory Card Game</h1> </header>
+			<header>
+				<h1>Marvel Memory Card Game</h1>
+				<Scoreboard score={score} />
+			</header>
 
 			{ loading && <Loading />}
 
@@ -109,7 +121,18 @@ function App() {
 						{charData.map((data) =>
 							<Card key={data.id} charData={data}
 								onClick={() => {
-									const newArr = charData.slice();
+									// If character HASNT been selected
+									if (!selected.includes(data.name)) {
+										// Copy `selected` arr and add new char to it
+										const copy = selected.slice();
+										copy.push(data.name);
+										setSelected(copy);
+
+										// Update score
+										setScore(score + 1);
+									} else setGameover(true);
+
+									const newArr = charData.slice(); // Copy Array
 									// Shuffle Character data & set state to re-render
 									setCharData(Utility.shuffle(newArr));
 								}} />)}
