@@ -4,6 +4,7 @@ import MarvelData from '../modules/marvelData';
 import '../styles/App.css';
 import Card from './Card';
 import Loading from './Loading';
+import Utility from '../modules/utility';
 
 function App() {
 	const [charData, setCharData] = useState(null);
@@ -15,7 +16,26 @@ function App() {
 		// Cannot define async function directly on useEffect callback
 		async function fetchData() {
 			// Define names to fetch
-			const names = ['Jean Grey', 'Spider-Man (2099)', 'Thor'];
+			let names = [
+				'Jean Grey',
+				'Spider-Man (2099)',
+				'Thor',
+				'Scarlet Witch',
+				'Captain America',
+				'Moon Knight',
+				'Doctor Strange',
+				'Silver Surfer',
+				'Thanos',
+				'Mephisto',
+				'Black Widow',
+				'Rocket Raccoon',
+				'Nebula',
+				'Kang',
+				'Wolverine',
+			];
+
+			// Shuffle names
+			names = Utility.shuffle(names);
 
 			// If Data is not set yet
 			if (!charData) {
@@ -30,25 +50,25 @@ function App() {
 				const charData = await Promise.all(promises);
 				setCharData(charData); // Update Character Data state
 			}
-
-			if (bgData) setLoading(false); // Update loading state
 		}
 
 		fetchData();
-	}, [bgData]);
+	}, []);
 
 	// Run on mount -- Get background image
 	useEffect(() => {
 		const fetchData = async () => {
-			const eventNames = [
+			let eventNames = [
 				'avengers vs x-men',
 				'age of ultron',
 				'Secret Invasion',
 				'atlantis attacks',
 			];
 
+			eventNames = Utility.shuffle(eventNames);
+
 			// If bgData is not already set
-			if (!bgData) {
+			if (bgData === null) {
 				const promises = eventNames.map(async (name) => {
 					const data = await MarvelData.get(name, false, false);
 					data.img = MarvelData.processImg(data.img, false, true);
@@ -59,18 +79,22 @@ function App() {
 				const data = await Promise.all(promises);
 				setBgData(data);
 			}
-
-			if (charData) setLoading(false);
 		};
 
 		fetchData();
-	}, [charData]);
+	}, []);
 
 	// Parse background img url if the data is loaded
 	const bgUrl = bgData ?
 		bgData[0].img.path + bgData[0].img.size + bgData[0].img.ext :
 		'';
 	const mainStyles = bgData ? {backgroundImage: `url(${bgUrl})`} : {};
+
+	// Run when charData or bgData change
+	useEffect(() => {
+		// If charData && bgData are loaded, set loading to false
+		if (charData && bgData) setLoading(false);
+	}, [charData, bgData]);
 
 	return (
 		<>
@@ -82,7 +106,13 @@ function App() {
 				{ !loading &&
 					// If not loading, map through data and return a card for each
 					<div className='card-container' >
-						{charData.map((data) => <Card key={data.id} charData={data} />)}
+						{charData.map((data) =>
+							<Card key={data.id} charData={data}
+								onClick={() => {
+									const newArr = charData.slice();
+									// Shuffle Character data & set state to re-render
+									setCharData(Utility.shuffle(newArr));
+								}} />)}
 					</div>
 				}
 			</main>
