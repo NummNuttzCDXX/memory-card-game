@@ -25,6 +25,13 @@ header {
 	box-sizing: border-box;
 }
 
+.content {
+	width: 100%;
+
+	display: flex;
+	flex-direction: row;
+}
+
 main {
 	width: 100%;
 	padding: 2rem;
@@ -43,4 +50,29 @@ main {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 	gap: 1rem;
+}
+
+footer {
+	width: 100%;
+	padding: .5rem;
+
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+
+	color: var(--red-marv);
+	box-sizing: border-box;
+}
+
+footer span:nth-child(1) {
+	justify-self: start;
+	cursor: pointer;
+	transition: color .5s;
+}
+
+footer span:nth-child(1):hover {
+	color: var(--green-comic);
+}
+
+footer a {
+	width: fit-content;
 }

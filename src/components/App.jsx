@@ -7,6 +7,7 @@ import Loading from './Loading';
 import Utility from '../modules/utility';
 import Scoreboard from './Scoreboard';
 import Gameover from './Gameover';
+import Sidebar from './Sidebar';
 
 function App() {
 	const [charData, setCharData] = useState(null);
@@ -126,33 +127,42 @@ function App() {
 
 			{ loading && <Loading />}
 
-			<main style={mainStyles}>
-				{ !loading &&
-					// If not loading, map through data and return a card for each
-					<div className='card-container' >
-						{charData.map((data) =>
-							<Card key={data.id} charData={data}
-								onClick={() => {
-									// If character HASNT been selected
-									if (!selected.includes(data.name)) {
-										// Copy `selected` arr and add new char to it
-										const copy = selected.slice();
-										copy.push(data.name);
-										setSelected(copy);
+			<div className="content">
+				<main style={mainStyles}>
+					{ !loading &&
+						// If not loading, map through data and return a card for each
+						<div className='card-container' >
+							{charData.map((data) =>
+								<Card key={data.id} charData={data}
+									onClick={() => {
+										// If character HASNT been selected
+										if (!selected.includes(data.name)) {
+											// Copy `selected` arr and add new char to it
+											const copy = selected.slice();
+											copy.push(data.name);
+											setSelected(copy);
+											// Update score
+											setScore(score + 1);
+										} else setGameover(true);
+										const newArr = charData.slice(); // Copy Array
+										// Shuffle Character data & set state to re-render
+										setCharData(Utility.shuffle(newArr));
+									}} />)}
+						</div>
+					}
+					{ gameover && <Gameover playAgain={reset} />}
+				</main>
 
-										// Update score
-										setScore(score + 1);
-									} else setGameover(true);
+				{charData && bgData && <Sidebar chars={charData} bgs={bgData} />}
+			</div>
 
-									const newArr = charData.slice(); // Copy Array
-									// Shuffle Character data & set state to re-render
-									setCharData(Utility.shuffle(newArr));
-								}} />)}
-					</div>
-				}
+			<footer>
+				<span>Created by BBirdy</span>
 
-				{ gameover && <Gameover playAgain={reset} />}
-			</main>
+				<a href="http://marvel.com" target="_blank" rel="noopener noreferrer">
+					{charData && charData[0].attribution}
+				</a>
+			</footer>
 		</>
 	);
 }
