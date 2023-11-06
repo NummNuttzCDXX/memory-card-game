@@ -1,6 +1,6 @@
 .scoreboard {
 	padding: 1rem;
-	border: 2px solid red;
+	border: 2px solid var(--red-marv);
 }
 
 .scoreboard p {

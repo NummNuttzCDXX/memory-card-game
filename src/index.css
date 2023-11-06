@@ -13,6 +13,12 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-size-adjust: 100%;
+
+	/* Colors */
+	--red-marv: #DB162F;
+	--blue-comic: #A5D8FF;
+	--green-comic: #BFFFBC;
+	--dark: #13262F;
 }
 
 a {
@@ -30,6 +36,8 @@ body {
 	place-items: center;
 	min-width: 320px;
 	min-height: 100vh;
+
+	background-color: var(--dark);
 }
 
 h1 {
@@ -44,12 +52,12 @@ button {
 	font-size: 1em;
 	font-weight: 500;
 	font-family: inherit;
-	background-color: #1a1a1a;
+	background-color: var(--dark);
 	cursor: pointer;
 	transition: border-color 0.25s;
 }
 button:hover {
-	border-color: #646cff;
+	border-color: var(--green-comic);
 }
 button:focus,
 button:focus-visible {

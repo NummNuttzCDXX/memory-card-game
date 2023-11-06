@@ -1,7 +1,8 @@
 .card {
+	font-weight: 600;
 	background-color: rgba(0, 0, 0, 0.603);
 
-	border: 2px solid red;
+	border: 2px solid var(--green-comic);
 	border-radius: .5rem;
 
 	overflow: hidden;
