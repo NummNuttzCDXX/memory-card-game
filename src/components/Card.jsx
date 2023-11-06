@@ -3,6 +3,7 @@
 import {useEffect} from 'react';
 import '../styles/Card.css';
 import MarvelData from '../modules/marvelData';
+import {Tilt} from 'react-tilt';
 
 export default function Card({charData, onClick}) {
 	// Calculate img size on every render
@@ -14,10 +15,17 @@ export default function Card({charData, onClick}) {
 	// Get URL
 	const imgUrl = charData.img.path + charData.img.size + charData.img.ext;
 
+	const tiltOptions = {
+		reverse: true,
+		scale: 1.11,
+	};
+
 	return (
-		<div className="card" onClick={onClick}>
-			<img src={imgUrl} alt={charData.name + ' image'} />
-			<p> {!charData ? '' : charData.name} </p>
-		</div>
+		<Tilt options={tiltOptions}>
+			<div className="card" onClick={onClick}>
+				<img src={imgUrl} alt={charData.name + ' image'} />
+				<p> {!charData ? '' : charData.name} </p>
+			</div>
+		</Tilt>
 	);
 }
