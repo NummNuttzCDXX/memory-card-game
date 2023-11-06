@@ -13,6 +13,7 @@ function App() {
 	const [charData, setCharData] = useState(null);
 	const [bgData, setBgData] = useState(null);
 	const [loading, setLoading] = useState(true);
+	const [showCards, setShowCards] = useState(true);
 
 	// Run on mount -- Get character data
 	useEffect(() => {
@@ -132,7 +133,7 @@ function App() {
 					{ !loading &&
 						// If not loading, map through data and return a card for each
 						<div className='card-container' >
-							{charData.map((data) =>
+							{showCards && charData.map((data) =>
 								<Card key={data.id} charData={data}
 									onClick={() => {
 										// If character HASNT been selected
@@ -153,7 +154,8 @@ function App() {
 					{ gameover && <Gameover playAgain={reset} />}
 				</main>
 
-				{charData && bgData && <Sidebar chars={charData} bgs={bgData} />}
+				{charData && bgData && <Sidebar chars={charData} bgs={bgData}
+					setShowCards={setShowCards} />}
 			</div>
 
 			<footer>

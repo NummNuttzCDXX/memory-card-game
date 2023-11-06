@@ -1,10 +1,16 @@
 /* eslint-disable react/prop-types */
 // Sidebar Component
 import {useState} from 'react';
+import visOn from '../assets/img/visibility-on.svg';
+import visOff from '../assets/img/visibility-off.svg';
 import '../styles/Sidebar.css';
 
-function Sidebar({chars, bgs}) {
+function Sidebar({chars, bgs, setShowCards}) {
+	// Make copy of charData and bgData arrs so the
+	// links dont get shuffled everytime the data gets shuffled
 	const [copy, setCopy] = useState([chars, bgs]);
+	// Which visibility icon to show
+	const [visibility, setVisibility] = useState(true);
 
 	return (
 		<div className="sidebar">
@@ -34,6 +40,13 @@ function Sidebar({chars, bgs}) {
 					);
 				})}
 			</ul>
+
+			<img className='visibility' src={visibility ? visOn : visOff}
+				alt={visibility ? 'Show background' : 'Hide background'}
+				onClick={() => {
+					setShowCards(!visibility);
+					setVisibility(!visibility);
+				}} />
 		</div>
 	);
 }

@@ -9,3 +9,20 @@
 .attribution {
 	margin: .5rem 0;
 }
+
+.visibility {
+	width: 3rem;
+
+	position: fixed;
+	bottom: 1rem;
+	right: 2rem;
+
+	/* Color: --red-marv */
+	filter: invert(16%) sepia(71%) saturate(5451%) hue-rotate(345deg) brightness(88%) contrast(95%);
+	cursor: pointer;
+	transition: filter .5s ease;
+}
+
+.visibility:hover {
+	filter: invert(88%) sepia(28%) saturate(409%) hue-rotate(60deg) brightness(102%) contrast(102%);
+}
