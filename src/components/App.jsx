@@ -6,6 +6,7 @@ import Card from './Card';
 import Loading from './Loading';
 import Utility from '../modules/utility';
 import Scoreboard from './Scoreboard';
+import Gameover from './Gameover';
 
 function App() {
 	const [charData, setCharData] = useState(null);
@@ -105,6 +106,17 @@ function App() {
 	const [selected, setSelected] = useState([]); // Hold selected characters
 	const [gameover, setGameover] = useState(false);
 
+	function reset() {
+		// Reset everything for new game
+		setSelected([]);
+		setGameover(false);
+		setScore(0);
+
+		// Shuffle cards
+		const copy = charData.slice();
+		setCharData(Utility.shuffle(copy));
+	}
+
 	return (
 		<>
 			<header>
@@ -138,6 +150,8 @@ function App() {
 								}} />)}
 					</div>
 				}
+
+				{ gameover && <Gameover playAgain={reset} />}
 			</main>
 		</>
 	);
