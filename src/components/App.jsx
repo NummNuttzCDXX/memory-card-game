@@ -14,6 +14,7 @@ function App() {
 	const [bgData, setBgData] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [showCards, setShowCards] = useState(true);
+	const [flipCards, setFlipCards] = useState(false); // Are cards being flipped?
 
 	// Run on mount -- Get character data
 	useEffect(() => {
@@ -145,10 +146,17 @@ function App() {
 											// Update score
 											setScore(score + 1);
 										} else setGameover(true);
-										const newArr = charData.slice(); // Copy Array
-										// Shuffle Character data & set state to re-render
-										setCharData(Utility.shuffle(newArr));
-									}} />)}
+
+										setFlipCards(true); // Flip cards
+
+										// Let cards flip and then shuffle, after delay
+										setTimeout(() => {
+											const newArr = charData.slice(); // Copy Array
+											// Shuffle Character data & set state to re-render
+											setCharData(Utility.shuffle(newArr));
+										}, 500);
+									}}
+									flipped={flipCards} setFlip={setFlipCards} />)}
 						</div>
 					}
 					{ gameover && <Gameover playAgain={reset} />}
