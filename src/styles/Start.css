@@ -1,0 +1,32 @@
+.select-diff-container {
+	width: 100vw;
+	height: 100vh;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 2;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	background-color: rgba(0, 0, 0, 0.655);
+}
+
+.select-diff {
+	padding: 2rem;
+	border: 3px solid gold;
+	background-color: var(--dark-red);
+}
+
+.select-diff h2 {
+	margin-top: 0;
+}
+
+.diff-btn-container {
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+}

@@ -26,7 +26,7 @@ export default function Card({charData, onClick, flipped = false, setFlip}) {
 
 		const total = img.clientHeight + txt.clientHeight + (txtMarg * 2);
 		setHeight(total);
-	}, []);
+	}); // Removed dependency array to prevent height errors
 
 	// Run when `flipped` changes -- Flip cards back if flipped
 	useEffect(() => {

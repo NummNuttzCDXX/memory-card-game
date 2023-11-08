@@ -8,13 +8,25 @@ import Utility from '../modules/utility';
 import Scoreboard from './Scoreboard';
 import Gameover from './Gameover';
 import Sidebar from './Sidebar';
+import Start from './Start';
 
 function App() {
 	const [charData, setCharData] = useState(null);
 	const [bgData, setBgData] = useState(null);
 	const [loading, setLoading] = useState(true);
+
 	const [showCards, setShowCards] = useState(true);
 	const [flipCards, setFlipCards] = useState(false); // Are cards being flipped?
+
+	const [start, setStart] = useState(false);
+	const [diff, setDiff] = useState(null);
+
+	// Start game when difficulty changes
+	useEffect(() => {
+		if (diff != null) setStart(true);
+
+		return () => setStart(false);
+	}, [diff]);
 
 	// Run on mount -- Get character data
 	useEffect(() => {
@@ -114,10 +126,41 @@ function App() {
 		setSelected([]);
 		setGameover(false);
 		setScore(0);
+		setStart(false);
+		setDiff(null);
 
 		// Shuffle cards
+		setFlipCards(true);
 		const copy = charData.slice();
 		setCharData(Utility.shuffle(copy));
+	}
+
+	/**
+	 * Get an array of characters to show for different difficulties
+	 * - Easy: Show 5 cards
+	 * - Medium: Show 10 cards
+	 * - Hard: Show 20 cards
+	 *
+	 * @return {Array} Array of characters to show
+	 */
+	function getCharacters() {
+		// If all characters have been selected (win)
+		// Win check
+		if (charData.length === selected.length) {
+			setGameover(true); // Set gameover (for now)
+		}
+
+		let start = 0;
+		let chars = charData.slice(start, diff);
+
+		// Make sure theres at least one character that hasnt been selected
+		while (chars.every((v) => selected.includes(v.name))) {
+			start = start + 1; // Increment `start` twice
+			chars = charData.slice(++start, diff + start);
+		}
+
+		// Return shuffled array of characters
+		return chars;
 	}
 
 	return (
@@ -131,33 +174,36 @@ function App() {
 
 			<div className="content">
 				<main style={mainStyles}>
-					{ !loading &&
-						// If not loading, map through data and return a card for each
-						<div className='card-container' >
-							{showCards && charData.map((data) =>
-								<Card key={data.id} charData={data}
-									onClick={() => {
-										// If character HASNT been selected
-										if (!selected.includes(data.name)) {
-											// Copy `selected` arr and add new char to it
-											const copy = selected.slice();
-											copy.push(data.name);
-											setSelected(copy);
-											// Update score
-											setScore(score + 1);
-										} else setGameover(true);
+					{ !start ? <Start setDiff={setDiff} /> :
+						!loading && start ?
+						// If not loading and game is started, map through data
+						// and return a card for each
+							<div className='card-container' >
+								{showCards && getCharacters().map((data) =>
+									<Card key={data.id} charData={data}
+										onClick={() => {
+											// If character HASNT been selected
+											if (!selected.includes(data.name)) {
+												// Copy `selected` arr and add new char to it
+												const copy = selected.slice();
+												copy.push(data.name);
+												setSelected(copy);
+												// Update score
+												setScore(score + 1);
+											} else setGameover(true);
 
-										setFlipCards(true); // Flip cards
+											setFlipCards(true); // Flip cards
 
-										// Let cards flip and then shuffle, after delay
-										setTimeout(() => {
-											const newArr = charData.slice(); // Copy Array
-											// Shuffle Character data & set state to re-render
-											setCharData(Utility.shuffle(newArr));
-										}, 500);
-									}}
-									flipped={flipCards} setFlip={setFlipCards} />)}
-						</div>
+											// Let cards flip and then shuffle, after delay
+											setTimeout(() => {
+												const newArr = charData.slice(); // Copy Array
+												// Shuffle Character data & set state to re-render
+												setCharData(Utility.shuffle(newArr));
+											}, 500);
+										}}
+										flipped={flipCards} setFlip={setFlipCards} />)}
+							</div> :
+							<Loading />
 					}
 					{ gameover && <Gameover playAgain={reset} />}
 				</main>
