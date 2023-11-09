@@ -1,4 +1,4 @@
-.gameover-wrapper {
+.gameover-wrapper, .win-wrapper {
 	width: 100vw;
 	height: 100vh;
 	position: fixed;
@@ -13,13 +13,13 @@
 	color: gold;
 }
 
-.gameover {
+.gameover, .win {
 	padding: 2rem;
 	border: 3px solid var(--red-marv);
 	background-color: rgb(from var(--red-marv) 100 0 40);
 }
 
-.gameover h1 {
+.gameover h1, .win h2 {
 	margin-top: 0;
 }
 
@@ -32,4 +32,19 @@
 
 .gameover button {
 	color: var(--blue-comic);
+}
+
+.win-wrapper .win {
+	border-color: var(--blue-comic);
+	background-color: rgb(54, 99, 23);
+	color: var(--blue-comic);
+}
+
+.win p {
+	font-size: 1.3rem;
+	margin: .5rem 0;
+}
+
+.win button:hover {
+	border-color: var(--blue-comic);
 }

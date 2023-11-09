@@ -9,6 +9,7 @@ import Scoreboard from './Scoreboard';
 import Gameover from './Gameover';
 import Sidebar from './Sidebar';
 import Start from './Start';
+import Win from './Win';
 
 function App() {
 	const [charData, setCharData] = useState(null);
@@ -209,7 +210,8 @@ function App() {
 							</div> :
 							<Loading />
 					}
-					{ gameover && <Gameover playAgain={reset} />}
+					{ (gameover && <Gameover playAgain={reset} />) ||
+					(selected.length == total && <Win playAgain={reset} total={total} />)}
 				</main>
 
 				{charData && bgData && <Sidebar chars={charData} bgs={bgData}
