@@ -2,7 +2,7 @@
 // Starting screen Component -- Select difficulty
 import '../styles/Start.css';
 
-function Start({setDiff}) {
+function Start({setDiff, total, setTotal}) {
 	return (
 		<div className='select-diff-container' >
 			<div className="select-diff">
@@ -12,6 +12,13 @@ function Start({setDiff}) {
 					<button type="button"
 						onClick={() => setDiff(10)} >Medium (10)</button>
 					<button type="button" onClick={() => setDiff(20)} >Hard (20)</button>
+				</div>
+
+				<div className='total-btn-container' >
+					<button type="button" onClick={() => setTotal(10)} > 10 </button>
+					<button type="button" onClick={() => setTotal(20)} > 20 </button>
+					<button type="button"
+						onClick={() => setTotal(total)} > All {total} </button>
 				</div>
 			</div>
 		</div>

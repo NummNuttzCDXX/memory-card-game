@@ -25,8 +25,13 @@
 	margin-top: 0;
 }
 
-.diff-btn-container {
+.diff-btn-container, .total-btn-container {
 	display: flex;
 	flex-direction: row;
+	justify-content: center;
 	gap: 1rem;
+}
+
+.total-btn-container {
+	margin-top: 1rem;
 }

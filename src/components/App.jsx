@@ -20,13 +20,14 @@ function App() {
 
 	const [start, setStart] = useState(false);
 	const [diff, setDiff] = useState(null);
+	const [total, setTotal] = useState(null);
 
 	// Start game when difficulty changes
 	useEffect(() => {
-		if (diff != null) setStart(true);
+		if (diff && total) setStart(true);
 
 		return () => setStart(false);
-	}, [diff]);
+	}, [diff, total]);
 
 	// Run on mount -- Get character data
 	useEffect(() => {
@@ -128,6 +129,7 @@ function App() {
 		setScore(0);
 		setStart(false);
 		setDiff(null);
+		setTotal(null);
 
 		// Shuffle cards
 		setFlipCards(true);
@@ -167,14 +169,16 @@ function App() {
 		<>
 			<header>
 				<h1>Marvel Memory Card Game</h1>
-				<Scoreboard score={score} />
+				<Scoreboard score={score} total={total} />
 			</header>
 
 			{ loading && <Loading />}
 
 			<div className="content">
 				<main style={mainStyles}>
-					{ !start ? <Start setDiff={setDiff} /> :
+					{!start ? <Start setDiff={setDiff}
+						total={charData ? charData.length : '...'} setTotal={setTotal} /> :
+
 						!loading && start ?
 						// If not loading and game is started, map through data
 						// and return a card for each

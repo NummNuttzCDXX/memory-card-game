@@ -4,7 +4,7 @@
 import {useEffect, useState} from 'react';
 import '../styles/Scoreboard.css';
 
-function Scoreboard({score}) {
+function Scoreboard({score, total}) {
 	const [bestScore, setBestScore] = useState(0);
 
 	// Run on initial render
@@ -25,7 +25,7 @@ function Scoreboard({score}) {
 
 	return (
 		<div className='scoreboard'>
-			<p>Score: {score} </p>
+			<p>Score: {score} of {total} </p>
 			<p>Best Score: {bestScore} </p>
 		</div>
 	);
