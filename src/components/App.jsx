@@ -215,7 +215,7 @@ function App() {
 				</main>
 
 				{charData && bgData && <Sidebar chars={charData} bgs={bgData}
-					setShowCards={setShowCards} />}
+					setShowCards={setShowCards} flipCards={() => setFlipCards(true)} />}
 			</div>
 
 			<footer>

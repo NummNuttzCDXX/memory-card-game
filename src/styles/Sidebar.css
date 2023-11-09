@@ -2,6 +2,40 @@
 	padding-right: 1rem;
 }
 
+.sidebar h2 {
+	position: relative;
+}
+
+.sidebar h2 img {
+	position: absolute;
+	top: -.1em;
+	right: 0;
+	cursor: pointer;
+
+	filter: invert(16%) sepia(71%) saturate(5451%) hue-rotate(345deg) brightness(88%) contrast(95%);
+
+	transition-duration: .5s;
+}
+
+.sidebar img.flip {
+	transform: rotate(180deg);
+}
+
+.dropdown {
+	transition-duration: .5s;
+	transform-origin: top;
+}
+
+.dropdown.open {
+	transform: scaleY(1);
+	position: static;
+}
+
+.dropdown.close {
+	transform: scaleY(0);
+	position: absolute;
+}
+
 .sidebar h3 {
 	padding-left: 1em;
 }
@@ -25,4 +59,16 @@
 
 .visibility:hover {
 	filter: invert(88%) sepia(28%) saturate(409%) hue-rotate(60deg) brightness(102%) contrast(102%);
+}
+
+@keyframes drop {
+	from {
+		transform: scaleY(0);
+		position: static;
+	}
+
+	to {
+		transform: scaleY(1);
+		position: absolute;
+	}
 }
