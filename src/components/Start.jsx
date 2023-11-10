@@ -14,6 +14,7 @@ function Start({setDiff, total, setTotal}) {
 					<button type="button" onClick={() => setDiff(20)} >Hard (20)</button>
 				</div>
 
+				<h2>Select total number of matches</h2>
 				<div className='total-btn-container' >
 					<button type="button" onClick={() => setTotal(10)} > 10 </button>
 					<button type="button" onClick={() => setTotal(20)} > 20 </button>

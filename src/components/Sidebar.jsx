@@ -29,8 +29,7 @@ function Sidebar({chars, bgs, setShowCards, flipCards}) {
 					className={expand ? '' : 'flip'} onClick={() => {
 						setExpand(!expand);
 						flipCards(); // Trigger card re-render so height doesnt mess up
-					}}
-					style={{top: !expand ? '1em' : ''}} />
+					}} />
 			</h2>
 
 			<div className={`dropdown${expand ? ' open' : ' close'}`}>

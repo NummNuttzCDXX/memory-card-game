@@ -1,5 +1,6 @@
 .sidebar {
 	padding-right: 1rem;
+	position: relative;
 }
 
 .sidebar h2 {
@@ -19,6 +20,7 @@
 
 .sidebar img.flip {
 	transform: rotate(180deg);
+	top: 1em;
 }
 
 .dropdown {
