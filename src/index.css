@@ -168,6 +168,12 @@ button:focus-visible {
 	}
 }
 
+@media screen and (max-width: 400px) {
+	.card-container {
+		grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+	}
+}
+
 /* Bigger Screens */
 @media screen and (min-width: 2000px) {
 	.card-container {
