@@ -173,11 +173,8 @@ function App() {
 	 * @return {Array} Array of characters to show
 	 */
 	function getCharacters() {
-		// If all characters have been selected (win)
 		// Win check
-		if (charData.length === selected.length) {
-			setGameover(true); // Set gameover (for now)
-		}
+		if (total === selected.length) return [];
 
 		let start = 0;
 		let chars = charData.slice(start, diff);
